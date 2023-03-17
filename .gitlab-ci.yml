@@ -8,8 +8,8 @@
 
 # See https://docs.gitlab.com/ee/ci/yaml/index.html for all available options
 
-test1:
+test_queries:
   stage: test
   script:
-    - ./SQL_tutor.sh
+    - ./SQL_tutor.sh -t
 
