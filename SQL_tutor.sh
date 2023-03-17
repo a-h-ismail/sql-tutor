@@ -148,7 +148,7 @@ examples:
 Lets practice: Enter a query that shows the HP and PlayerID of players having an "s" anywhere in their Name:'
 read_query "SELECT HP, PlayerID FROM Players WHERE Name LIKE '%s%';"
 echo 'Enter a query that shows the Class and Name of Players whose name start with an "a" and is exactly 4 characters long:'
-read_query " 'a___';"
+read_query "SELECT Class, Name FROM Players WHERE Name LIKE 'a___';"
 echo 'Enter a query that shows all columns of Players whose Name starts with a "b" and has an "n" somewhere in the name:'
 read_query "SELECT * FROM Players WHERE Name LIKE 'b%s%';"
 echo 'Enter a query that shows the Players having underscore somewhere in their name:'
