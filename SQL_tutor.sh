@@ -40,7 +40,9 @@ function read_query {
         # Show and execute solution
         elif [ "$QUERY" = 'solution' ]; then
             echo -e "${LGREEN}Solution:${NC} $1"
-            $SQL_CONNECT -e "USE sql_tutor; $1\n"
+            $SQL_CONNECT -e "USE sql_tutor; $1"
+            # Quick newline
+            echo
             return 0;
         fi
 
@@ -161,7 +163,7 @@ SELECT DISTINCT HP FROM Players;'
 
 $SQL_CONNECT -e "USE sql_tutor; SELECT DISTINCT HP FROM Players;"
 echo -e '\nand: SELECT DISTINCT Name, HP FROM Players;'
-$SQL_CONNECT -e "USE sql_tutor; SELECT DISTINCT HP FROM Players;"
+$SQL_CONNECT -e "USE sql_tutor; SELECT DISTINCT Name, HP FROM Players;"
 echo -e '\nDid you notice something? The first query returned only distinct HP, while the second one returned all rows despite some having identical HP.
 The addition of the Name column made the rows unique, so all rows were displayed.'
 
