@@ -39,7 +39,7 @@ function read_query {
             return 0
         # Show and execute solution
         elif [ "$QUERY" = 'solution' ]; then
-            echo "${LGREEN}Solution:${NC} $1"
+            echo -e "${LGREEN}Solution:${NC} $1"
             $SQL_CONNECT -e "USE sql_tutor; $1\n"
             return 0;
         fi
