@@ -22,7 +22,7 @@ function validate_access_query {
         EXPECTED_OUTPUT=`$SQL_CONNECT -e "$1"`
         ACTUAL_OUTPUT=`$SQL_CONNECT -e "$2"`
         if [ "$EXPECTED_OUTPUT" = "$ACTUAL_OUTPUT" ]; then
-            $SQL_CONNECT -e "$1"
+            echo "$EXPECTED_OUTPUT"
             return 0
         else
             return 1
@@ -40,9 +40,7 @@ function read_query {
         # Show and execute solution
         elif [ "$QUERY" = 'solution' ]; then
             echo "${LGREEN}Solution:${NC} $1"
-            $SQL_CONNECT -e "USE sql_tutor; $1"
-            # Quick newline
-            echo
+            $SQL_CONNECT -e "USE sql_tutor; $1\n"
             return 0;
         fi
 
