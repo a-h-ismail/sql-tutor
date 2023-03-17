@@ -33,7 +33,7 @@ function validate_access_query {
 
 function read_query {
     while true ; do
-        read -r -p 'MariaDB [sql_tutor]> ' QUERY
+        read -e -r -p 'MariaDB [sql_tutor]> ' QUERY
         # For debugging purposes
         if [ "$QUERY" = 'skip' ]; then
             return 0
@@ -165,7 +165,9 @@ $SQL_CONNECT -e "USE sql_tutor; SELECT DISTINCT HP FROM Players;"
 echo -e '\nand: SELECT DISTINCT Name, HP FROM Players;'
 $SQL_CONNECT -e "USE sql_tutor; SELECT DISTINCT Name, HP FROM Players;"
 echo -e '\nDid you notice something? The first query returned only distinct HP, while the second one returned all rows despite some having identical HP.
-The addition of the Name column made the rows unique, so all rows were displayed.'
+The addition of the Name column made the rows unique, so all rows were displayed.\n'
+# Too much output, add delay for user to notice.
+sleep 2
 
 echo -e 'MySQL has a large collection of built-in functions to handle strings and values. We mention some of them:
 CONCAT(str1, str2): Concatenates two strings.
