@@ -107,12 +107,15 @@ if [ $? -eq 1 ]; then
     echo "Setup done."
 fi
 clear
-echo "MySQL is a Database management system used to store and manipulate databases efficiently. Each database stored by MySQL consists of tables, which in turn consist of data rows and columns."
-echo -e 'For this tutorial, we will be accessing the table "Players" of the database "sql_tutor".\n Players table:'
+echo "Structured Query Language (SQL) is a standarized programming language used to manage Relational Databases.
+Multiple Relational Database Management Systems (RDBMS) exist (MySQL, MariaDB, MS SQL...). We will use MariaDB (a fork of MySQL)."
+
+echo -e '\nRDBMS stores databases, each database can have one or more tables, and each table contains data organized in rows and columns.
+For this tutorial, we will be accessing the table "Players" of the database "sql_tutor".\n Players table:'
 $SQL_CONNECT -e "USE sql_tutor; SELECT * FROM Players;"
-echo 'The SELECT statement is used to show one or more data columns of a table.'
-echo -e 'Syntax: SELECT column1, column2,... FROM table_name;
-\nExample: To show the "HP" column: SELECT HP FROM Players;\nTry it out:'
+echo -e 'The SELECT statement is used to show one or more data columns of a table.
+Syntax: SELECT column1, column2,... FROM table_name;
+Example: To show the "HP" column: SELECT HP FROM Players;\nTry it out:'
 read_query "SELECT HP FROM Players;"
 echo "Enter the query to show PlayerID, HP and Name."
 read_query "SELECT PlayerID, HP, Name FROM Players;"
