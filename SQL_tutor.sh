@@ -22,7 +22,7 @@ function validate_access_query {
         EXPECTED_OUTPUT=`$SQL_CONNECT -e "$1"`
         ACTUAL_OUTPUT=`$SQL_CONNECT -e "$2"`
         if [ "$EXPECTED_OUTPUT" = "$ACTUAL_OUTPUT" ]; then
-            echo "$EXPECTED_OUTPUT"
+            $SQL_CONNECT -e "$1"
             return 0
         else
             return 1
