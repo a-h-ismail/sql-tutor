@@ -7,6 +7,10 @@ SEPARATOR='-------------------------------------------------------------'
 RED='\033[0;31m'
 LGREEN='\033[1;32m'
 NC='\033[0m' # No Color
+
+test $1 = '-t'
+TEST_MODE=`echo $?`
+
 function validate_access_query {
     # First argument is the correct query.
     # Second argument is the user supplied query to check.
@@ -33,27 +37,37 @@ function validate_access_query {
 
 function read_query {
     while true ; do
-        read -e -r -p 'MariaDB [sql_tutor]> ' QUERY
-        # For debugging purposes
-        if [ "$QUERY" = 'skip' ]; then
-            return 0
-        # Show and execute solution
-        elif [ "$QUERY" = 'solution' ]; then
-            echo -e "${LGREEN}Solution:${NC} $1"
+        # Test if all queries are valid.
+        if [ $TEST_MODE -eq 0 ]; then
             $SQL_CONNECT -e "USE sql_tutor; $1"
-            # Quick newline
-            echo
-            return 0;
-        fi
-
-        # Add 'USE sql_tutor;' to the queries.
-        QUERY=`echo "USE sql_tutor; $QUERY"`
-        EXPECTED_QUERY=`echo "USE sql_tutor; $1"`
-        validate_access_query "$EXPECTED_QUERY" "$QUERY"
-        if [ $? -eq 0 ]; then
-            break
+            if [ $? -ne 0 ]; then
+                exit 1
+            else
+                return 0
+            fi
         else
-            echo -e "${RED}Incorrect query, try again! (Type 'solution' if you're stuck)${NC}\n"
+            read -e -r -p 'MariaDB [sql_tutor]> ' QUERY
+            # For debugging purposes
+            if [ "$QUERY" = 'skip' ]; then
+                return 0
+            # Show and execute solution
+            elif [ "$QUERY" = 'solution' ]; then
+                echo -e "${LGREEN}Solution:${NC} $1"
+                $SQL_CONNECT -e "USE sql_tutor; $1"
+                # Quick newline
+                echo
+                return 0;
+            fi
+
+            # Add 'USE sql_tutor;' to the queries.
+            QUERY=`echo "USE sql_tutor; $QUERY"`
+            EXPECTED_QUERY=`echo "USE sql_tutor; $1"`
+            validate_access_query "$EXPECTED_QUERY" "$QUERY"
+            if [ $? -eq 0 ]; then
+                break
+            else
+                echo -e "${RED}Incorrect query, try again! (Type 'solution' if you're stuck)${NC}\n"
+            fi
         fi
     done
     echo -e "${LGREEN}Correct!${NC}\n"
