@@ -1,4 +1,7 @@
 #!/bin/bash
+# Copyright (C) 2023 Ahmad Ismail
+# SPDX-License-Identifier: AGPL-3.0-only
+
 # Ease of use connect variable
 SQL_CONNECT='mysql -h localhost -u sql_tutor'
 # May use it
@@ -8,8 +11,8 @@ RED='\033[0;31m'
 LGREEN='\033[1;32m'
 NC='\033[0m' # No Color
 
-test $1 = '-t'
-TEST_MODE=`echo $?`
+test "$1" = '-t'
+run_test="$?"
 
 function validate_access_query {
     # First argument is the correct query.
@@ -23,8 +26,8 @@ function validate_access_query {
     else
         # The query does not match the correct one, probably the user is MiXIng cAsE, or just another correct query.
         # Run both queries and check if the output matches.
-        EXPECTED_OUTPUT=`$SQL_CONNECT -e "$1"`
-        ACTUAL_OUTPUT=`$SQL_CONNECT -e "$2"`
+        EXPECTED_OUTPUT=$($SQL_CONNECT -e "$1")
+        ACTUAL_OUTPUT=$($SQL_CONNECT -e "$2")
         if [ "$EXPECTED_OUTPUT" = "$ACTUAL_OUTPUT" ]; then
             $SQL_CONNECT -e "$1"
             return 0
@@ -38,7 +41,7 @@ function validate_access_query {
 function read_query {
     while true ; do
         # Test if all queries are valid.
-        if [ $TEST_MODE -eq 0 ]; then
+        if [[ $run_test -eq 0 ]]; then
             $SQL_CONNECT -e "USE sql_tutor; $1"
             if [ $? -ne 0 ]; then
                 exit 1
@@ -218,4 +221,3 @@ Practice: Enter a query that shows the maximum HP of players having an "s" in th
 read_query "SELECT MAX(HP) FROM Players WHERE Name IN ( SELECT Name FROM Players WHERE Name LIKE '%s%' );"
 
 echo -e '\nYou completed the SQL tutor! Well done!'
-# By Ahmad Ismail
