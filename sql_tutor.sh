@@ -44,7 +44,7 @@ function validate_command
             dialog --no-collapse --colors --title '\Z2 Correct!' --msgbox "$tmp1" 0 0
             return 0
         else
-            dialog --colors --title '\Z1 Oops' --msgbox 'Incorrect, try again (or type \Z2"solution"\Zn to view the correct answer)' 0 0
+            dialog --colors --title '\Z1 Oops' --msgbox 'Try Again' 0 0
         return 1
         fi
     fi
@@ -58,8 +58,8 @@ while [[ i -le total ]]; do
     OIFS="$IFS"
     IFS=$'\n'
 
-    # The sed filter removes leading and trailing double quotes, and removes the escape from all other double quotes
-    dialog_data=($(jq -M ".d$i.title, .d$i.type, .d$i.content, .d$i.command" <<< "$data_json" | sed -e 's/^"\|"$//g' -e 's/\\"/"/g'))
+    # The sed filter removes leading and trailing double quotes, and removes the escape from all other double quotes and literal backslash
+    dialog_data=($(jq -M ".d$i.title, .d$i.type, .d$i.content, .d$i.command" <<< "$data_json" | sed -e 's/^"\|"$//g' -e 's/\\"/"/g' -e 's/\\\\/\\/g'))
     IFS="$OIFS"
 
     title="${dialog_data[0]}"
@@ -85,11 +85,17 @@ while [[ i -le total ]]; do
             # You have to let something read from the FIFO otherwise dialog will stall forever
             # So background the dialog and start reading from the FIFO
             # Better than writing to a temporary file
-            dialog --colors --no-collapse --cancel-label Previous --title "$title" --inputbox "$content" 0 0 2> "$dialog_out"
+            dialog --colors --extra-button --extra-label Solution --no-collapse --cancel-label Previous --title "$title" --inputbox "$content" 0 0 2> "$dialog_out"
             ret=$?
 
             if [[ ret -eq 1 ]] && [[ i -gt 1 ]]; then
                 let --i
+                break
+            fi
+
+            if [[ ret -eq 3 ]]; then
+                validate_command "$command" 'solution'
+                let ++i
                 break
             fi
 
