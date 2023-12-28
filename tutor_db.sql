@@ -6,6 +6,7 @@ INSERT INTO Players(PlayerID, HP, Name, Strength, Class) VALUES (8927412, 20, 's
 INSERT INTO Players(PlayerID, HP, Name, Strength, Class) VALUES (-1635515, 50, 'cloudseeker11', 200, 'medium');
 INSERT INTO Players(PlayerID, HP, Name, Strength, Class) VALUES (2121575, 25, 'bastion73', 50, 'light');
 INSERT INTO Players(PlayerID, HP, Name, Strength, Class) VALUES (6598247, 110, 'ace1%', 1000, 'heavy');
+INSERT INTO Players(PlayerID, HP, Name, Strength, Class) VALUES (4376926, 55, 'axle', 950, 'heavy');
 INSERT INTO Players(PlayerID, HP, Name, Strength, Class) VALUES (-3764183, 15, 'delta732', 100, 'light');
 INSERT INTO Players(PlayerID, HP, Name, Strength, Class) VALUES (-1243723, 20, 'epsilon32', 100, 'light');
 INSERT INTO Players(PlayerID, HP, Name, Strength, Class) VALUES (5321686, 125, 'chariot746', 1250, 'heavy');
