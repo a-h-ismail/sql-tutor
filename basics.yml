@@ -269,7 +269,7 @@ d27:
 d28:
   title: Subqueries
   type: yesno
-  command: |-
+  content: |-
     A MySQL subquery is a query nested within another query.
     A subquery is enclosed in parenthesis and is executed before the main query.
     
