@@ -69,6 +69,11 @@ while [[ i -le total ]]; do
 
     case "$dtype" in
     "yesno")
+
+        if [[ $content == 'null' ]]; then
+            content="$(bash -c "$command")"
+        fi
+
         dialog --colors --no-collapse --title "$title" --yes-label Next --no-label Previous --yesno "$content" 0 0
         ret=$?
         if [[ ret -eq 0 ]]; then
