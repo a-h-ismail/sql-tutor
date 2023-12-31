@@ -20,6 +20,7 @@ function int_exit
 
     if [[ $? -eq 0 ]] ; then
         rm "$dialog_out" 2> /dev/null
+        echo "$i" > state
         exit 2
     fi
 }
@@ -50,8 +51,20 @@ function validate_command
     fi
 }
 
-i='1'
+i="$(< state)"
 total=$(awk '/d[[:digit:]]+:/ {++i}; END {print i}' $data_file)
+
+# Does state contain a valid number?
+if [[ $i =~ ^[[:digit:]]+$ ]] && [[ $i -gt 1 ]] && [[ $i -le $total ]] ; then
+    dialog --title "Previous Progress Found" --yesno 'Do you want to restore the previous progress?' 0 0
+    if [[ $? -eq 1 ]]; then
+        i=1
+    fi
+else
+    i=1
+    rm state
+fi
+
 trap 'int_exit' INT
 
 while [[ i -le total ]]; do
@@ -115,4 +128,4 @@ while [[ i -le total ]]; do
 done
 
 dialog --erase-on-exit --title 'Congratulations' --msgbox "You have completed this module!" 0 0
-rm "$dialog_out" 2> /dev/null
+rm "$dialog_out" state 2> /dev/null
