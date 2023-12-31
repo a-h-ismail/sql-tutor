@@ -4,12 +4,16 @@
 d1:
   title: Introduction
   type: yesno
-  content: |- 
-    Structured Query Language (SQL) is a standardized programming language used to manage Relational Databases.
+  content: |-
+    A relational database organizes data in multiple tables that consist of rows and columns.
 
-    Every SQL query should end with a semicolon ;
+    Rows are known as records.
 
-    For this tutorial, we will be accessing the table "Players" of the database "sql_tutor", using MariaDB as the database system.
+    Columns are known as attributes.
+
+    A relational database management system (RDBMS) is a program that manages relational databases.
+
+    SQL is a standardized language that is used to query (read) and modify relational databases.
 
 d2:
   title: The Players Table
