@@ -1,9 +1,16 @@
 ## Introduction
 SQL tutor is a script that teaches you some of the basics of SQL interactively. Currently only tested on Debian based systems.
 
+## Features
+
+- Simple terminal user interface (using `dialog`).
+- Interactive exercises.
+- Progress indicator on top.
+- Progress save/restore.
+
 ## Installation
 
-Supports only Linux systems.
+Tested on Debian systems, it should also work on other distributions as long as dependencies are satisfied.
 
 ### Debian/Ubuntu
 
