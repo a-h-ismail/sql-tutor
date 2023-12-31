@@ -30,21 +30,21 @@ function validate_command
     tmp1="$($SQL_CONNECT -e "$1")"
     if [[ "$2" == 'solution' ]]; then
 
-        dialog --no-collapse --colors --title "\Z2 Solution: $1" --msgbox "$tmp1" 0 0
+        dialog --backtitle "$i/$total" --no-collapse --colors --title "\Z2 Solution: $1" --msgbox "$tmp1" 0 0
         return 0
     fi
 
     if [[ "$1" == "$2" ]]; then
-        dialog --no-collapse --colors --title '\Z2 Correct!' --msgbox "$tmp1" 0 0
+        dialog --backtitle "$i/$total" --no-collapse --colors --title '\Z2 Correct!' --msgbox "$tmp1" 0 0
         return 0
 
     else
         tmp2="$($SQL_CONNECT -e "$2")"
         if [[ "$tmp1" == "$tmp2" ]]; then
-            dialog --no-collapse --colors --title '\Z2 Correct!' --msgbox "$tmp1" 0 0
+            dialog --backtitle "$i/$total" --no-collapse --colors --title '\Z2 Correct!' --msgbox "$tmp1" 0 0
             return 0
         else
-            dialog --colors --title '\Z1 Oops' --msgbox 'Try Again' 0 0
+            dialog --backtitle "$i/$total" --colors --title '\Z1 Oops' --msgbox 'Try Again' 0 0
         return 1
         fi
     fi
@@ -74,7 +74,7 @@ while [[ i -le total ]]; do
             content="$(bash -c "$command")"
         fi
 
-        dialog --colors --no-collapse --title "$title" --yes-label Next --no-label Previous --yesno "$content" 0 0
+        dialog --backtitle "$i/$total" --colors --no-collapse --title "$title" --yes-label Next --no-label Previous --yesno "$content" 0 0
         ret=$?
         if [[ ret -eq 0 ]]; then
             let ++i
@@ -90,7 +90,7 @@ while [[ i -le total ]]; do
             # You have to let something read from the FIFO otherwise dialog will stall forever
             # So background the dialog and start reading from the FIFO
             # Better than writing to a temporary file
-            dialog --colors --extra-button --extra-label Solution --no-collapse --cancel-label Previous --title "$title" --inputbox "$content" 0 0 2> "$dialog_out"
+            dialog --backtitle "$i/$total" --colors --extra-button --extra-label Solution --no-collapse --cancel-label Previous --title "$title" --inputbox "$content" 0 0 2> "$dialog_out"
             ret=$?
 
             if [[ ret -eq 1 ]] && [[ i -gt 1 ]]; then
