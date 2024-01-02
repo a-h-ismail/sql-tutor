@@ -47,11 +47,11 @@ d5:
   content: |-
     What if you want to display all data columns? Writing the names of all columns can be tedious and error prone.
     
-    In this case we can use the wildcard "*".
+    In this case, use the wildcard "*".
 
     The query becomes: SELECT * FROM table_name;
     
-    Type the command to view all columns in our "Players" table
+    Type the query that views all columns in our "Players" table:
   
   command: SELECT * FROM Players;
 
@@ -59,7 +59,7 @@ d6:
   title: WHERE statement
   type: yesno
   content: |-
-    The WHERE statement is used to filter the output according to the provided conditions.
+    The WHERE statement filters the output according to the provided conditions.
 
     Supported operations: = < > <= >= BETWEEN LIKE IN
 
@@ -73,16 +73,16 @@ d7:
   title: Examples
   type: yesno
   content: |-
-    To select rows where HP is smaller or equal to 20:
+    Select rows where HP is smaller or equal to 20:
     SELECT * FROM Players WHERE HP <= 20;
 
-    To select rows where Strength is between 40 and 200:
+    Select rows where Strength is between 40 and 200:
     SELECT * FROM Players WHERE Strength BETWEEN 40 AND 200;
 
-    To select rows with specific values (like specific usernames):
+    Select rows with specific values (like specific usernames):
     SELECT * FROM Players WHERE Name IN ("sparks87", "stormheat79");
     
-    To select rows where the Class is not "light":
+    Select rows where the Class is not "light":
     SELECT * FROM Players WHERE Class NOT IN ("light");
 
 
@@ -112,21 +112,23 @@ d11:
   title: The LIKE statement
   type: yesno
   content: |-
-    This operator is used to search for a specific pattern in strings.
+    This statement is used to search for a specific pattern in strings.
+    
     It supports two wildcards: % and _
     '%' matches zero or more characters, '_' (underscore) matches exactly one character.
     
     If you have reserved characters in the data (like _ %), you can escape them in the query using a backslash '\'.
+
     If you need a literal backslash in the string, type '\\'.
 
 d12:
   title: Examples
   type: yesno
   content: |-
-    To select rows where Name starts with "c":
+    Select rows where Name starts with "c":
     SELECT * FROM Players WHERE Name LIKE "c%";
 
-    To select rows where Name is exactly 8 characters (those are 8 underscores):
+    Select rows where Name is exactly 8 characters (those are 8 underscores):
     SELECT * FROM Players WHERE Name LIKE "________";
   
 d13:
